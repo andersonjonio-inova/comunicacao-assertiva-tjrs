@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+*.zip
+*.tar.gz
+assets/audio/
+index.backup*.html
+blueprint-*.json
+
