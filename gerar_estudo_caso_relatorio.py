@@ -9,7 +9,7 @@ from docx.shared import Cm, Pt, RGBColor
 
 
 BASE = Path(__file__).resolve().parent
-OUT = BASE / "entregas" / "Estudo_de_Caso_O_Relatorio_Que_Nao_Ficara_Pronto.docx"
+OUT = BASE / "entregas" / "Estudo_de_Caso_O_Relatorio_Que_Nao_Ficara_Pronto_Versao_Final.docx"
 
 
 def shade(cell, fill):
@@ -172,10 +172,8 @@ def build():
         "1. Que mudanças corporais o servidor percebeu? Como a interocepção poderia ajudá-lo a reconhecer o próprio estado antes de agir?",
         "2. Como valência e ativação variaram entre a fala do gestor, o trabalho após a cena, o trajeto e a chegada em casa?",
         "3. Quais emoções, pensamentos e impulsos podem ser distinguidos? Quais deles são fatos e quais são interpretações ou hipóteses?",
-        "4. Como a atenção do servidor foi afetada? Que consequências apareceram na concentração, na comunicação e nas relações?",
-        "5. Onde aparecem ruminação, transferência de ativação e transbordamento emocional?",
-        "6. Que respostas poderiam preservar, ao mesmo tempo, a responsabilidade pela entrega, a dignidade das pessoas e a qualidade da relação de trabalho?",
-        "7. Que conversa posterior seria necessária entre gestor e servidor? Quais fatos deveriam ser verificados antes de atribuir responsabilidades?",
+        "4. Onde aparecem ruminação, transferência de ativação e transbordamento emocional?",
+        "5. Que respostas poderiam preservar, ao mesmo tempo, a responsabilidade pela entrega, a dignidade das pessoas e a qualidade da relação de trabalho?",
     ])
 
     doc.add_heading("Síntese conceitual para consulta", level=1)
