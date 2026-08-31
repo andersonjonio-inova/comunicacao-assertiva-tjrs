@@ -287,6 +287,36 @@
 <aside class="notes" id="notes"><b>Notas do apresentador</b><span id="noteText"></span></aside>
 <footer class="chrome"><button aria-label="Slide anterior" class="control" id="prev">←</button><span class="counter" id="counter">01 / 76</span><div class="progress"><i id="bar"></i></div><div class="timer-wrap"><div class="timerbox" id="timerbox"><button class="control" id="timerToggle" title="Iniciar ou pausar temporizador (T)">▶</button><button class="timer" id="timer" title="Definir tempo" aria-expanded="false">00:00</button><button class="control" id="timerReset" title="Reiniciar temporizador (R)">↺</button></div><div class="timer-panel" id="timerPanel" role="dialog" aria-label="Configurar timer"><div class="timer-panel-head"><b>Definir timer</b><button class="timer-close" id="timerClose" aria-label="Fechar">×</button></div><div class="timer-fields"><div class="timer-field"><label for="timerMinutes">Minutos</label><input id="timerMinutes" type="number" min="0" max="180" value="5" inputmode="numeric"/></div><div class="timer-separator">:</div><div class="timer-field"><label for="timerSeconds">Segundos</label><input id="timerSeconds" type="number" min="0" max="59" value="0" inputmode="numeric"/></div></div><div class="timer-presets" aria-label="Tempos rápidos"><button data-timer-minutes="1">1 min</button><button data-timer-minutes="3">3 min</button><button data-timer-minutes="5">5 min</button><button data-timer-minutes="10">10 min</button><button data-timer-minutes="15">15 min</button></div><div class="timer-actions"><button id="timerApply">Aplicar tempo</button><button class="timer-popout" id="timerPopout">Destacar timer ↗</button></div></div></div><button class="control" id="notesBtn" title="Notas (N)">N</button><button class="control" id="full" title="Tela cheia (F)">⛶</button><button aria-label="Próximo slide" class="control" id="next">→</button></footer>
 <script>
+    const suppressedSlideTitles=new Set([
+      'Cinco capacidades no modelo de Goleman',
+      'Quatro habilidades no modelo de Mayer, Salovey e Caruso',
+      'Autopercepção, valores e coerência profissional',
+      'Componentes do processo emocional',
+      'Emoção, sentimento e expressão emocional',
+      'Participação do corpo na experiência emocional',
+      'Aplicação do ciclo emocional à gestão',
+      'Sinais corporais e identificação emocional',
+      'Varredura corporal orientada',
+      'Nomeação emocional e ampliação da escolha'
+    ]);
+    document.querySelectorAll('.slide').forEach(slide=>{
+      if(suppressedSlideTitles.has(slide.dataset.title)) slide.remove();
+    });
+    const revisedTransitions=new Map([
+      ['O iceberg da inteligência emocional','Indicadores comportamentais da inteligência emocional'],
+      ['Relação entre competência técnica e competência emocional','Emoções como sistemas de orientação'],
+      ['Emoções como sistemas de orientação','Funções das emoções'],
+      ['Emoção, sentimento, humor, pensamento, impulso e comportamento','Interocepção e percepção do estado interno'],
+      ['Ciclo de geração da emoção','Oportunidades de regulação no ciclo emocional'],
+      ['Autoconsciência emocional','Escala de intensidade emocional']
+    ]);
+    document.querySelectorAll('.slide').forEach(slide=>{
+      const nextTitle=revisedTransitions.get(slide.dataset.title);
+      if(nextTitle&&slide.dataset.note){
+        slide.dataset.note=slide.dataset.note.replace(/Com essa base, seguimos para o próximo momento: [^.]+\.?$/,
+          `Com essa base, seguimos para o próximo momento: ${nextTitle}.`);
+      }
+    });
     const slides=[...document.querySelectorAll('.slide')],nav=[...document.querySelectorAll('.nav button')],counter=document.querySelector('#counter'),bar=document.querySelector('#bar'),notes=document.querySelector('#notes'),noteText=document.querySelector('#noteText'),timer=document.querySelector('#timer'),timerbox=document.querySelector('#timerbox'),timerToggle=document.querySelector('#timerToggle'),timerPanel=document.querySelector('#timerPanel'),timerMinutes=document.querySelector('#timerMinutes'),timerSeconds=document.querySelector('#timerSeconds'),menuToggle=document.querySelector('#menuToggle'),menuShade=document.querySelector('#menuShade');
     const fragmentSelector='.process-node,.flow>.step,.grid>.card,.pausa>.letter,.pausa-strip>div,.orbit-item,.network-node,.meter>span,.myth-grid>*,.axis>.quadrant,.lens-grid>.lens,.activity-guide>div,.iceberg-label';
     let current=0,remaining=0,running=false,timerId=null,timerStartValue=0,timerWindow=null;
