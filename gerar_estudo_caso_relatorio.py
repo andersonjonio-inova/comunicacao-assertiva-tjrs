@@ -154,10 +154,7 @@ def build():
     add_question_table(doc, [
         "1. O que pode ser observado? Quais fatos uma câmera, uma gravação ou um registro documental poderia confirmar?",
         "2. O que foi interpretado? Quais avaliações, generalizações, suposições ou conclusões aparecem como se fossem fatos?",
-        "3. Que informações ainda estão ausentes e precisariam ser verificadas antes de avaliar responsabilidades?",
-        "4. Quais sinais interoceptivos aparecem no gestor? O que eles informam, sem determinar uma resposta?",
-        "5. Como você situaria o estado do gestor em termos de valência e ativação? Que emoções são possíveis?",
-        "6. Quais capacidades de inteligência emocional poderiam ampliar a margem de escolha do gestor naquele momento?",
+        "3. Quais necessidades parecem estar mobilizadas no gestor e no servidor? Que emoções podem emergir quando essas necessidades são atendidas, frustradas ou percebidas como ameaçadas?",
     ])
 
     doc.add_page_break()
