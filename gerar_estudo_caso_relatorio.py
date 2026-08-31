@@ -10,6 +10,17 @@ from docx.shared import Cm, Pt, RGBColor
 
 BASE = Path(__file__).resolve().parent
 OUT = BASE / "entregas" / "Estudo_de_Caso_O_Relatorio_Que_Nao_Ficara_Pronto_Versao_Final.docx"
+LOGO = BASE / "assets" / "logo-cjud.jpg"
+
+BLUE = "17488F"
+NAVY = "0E2F66"
+GREEN = "76B82A"
+ORANGE = "F39A24"
+YELLOW = "FFD21D"
+INK = "15243A"
+MUTED = "617087"
+WASH = "F4F8FC"
+LINE = "DCE5EF"
 
 
 def shade(cell, fill):
@@ -40,11 +51,132 @@ def set_repeat_table_header(row):
     tr_pr.append(tbl_header)
 
 
+def add_page_number(paragraph):
+    run = paragraph.add_run()
+    fld_char_1 = OxmlElement("w:fldChar")
+    fld_char_1.set(qn("w:fldCharType"), "begin")
+    instr_text = OxmlElement("w:instrText")
+    instr_text.set(qn("xml:space"), "preserve")
+    instr_text.text = " PAGE "
+    fld_char_2 = OxmlElement("w:fldChar")
+    fld_char_2.set(qn("w:fldCharType"), "end")
+    run._r.extend((fld_char_1, instr_text, fld_char_2))
+
+
+def add_color_signature(doc):
+    table = doc.add_table(rows=1, cols=4)
+    table.autofit = False
+    for cell, color in zip(table.rows[0].cells, (BLUE, GREEN, ORANGE, YELLOW)):
+        shade(cell, color)
+        set_cell_margins(cell, top=45, start=0, bottom=45, end=0)
+
+
+def add_cover(doc):
+    logo_p = doc.add_paragraph()
+    logo_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    logo_p.add_run().add_picture(str(LOGO), width=Cm(2.45))
+
+    institution = doc.add_paragraph()
+    institution.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = institution.add_run("TJRS · FORMAÇÃO DE GESTORES")
+    r.bold = True
+    r.font.size = Pt(11)
+    r.font.color.rgb = RGBColor.from_string(BLUE)
+
+    banner = doc.add_table(rows=1, cols=1)
+    cell = banner.cell(0, 0)
+    shade(cell, NAVY)
+    set_cell_margins(cell, top=360, start=420, bottom=360, end=420)
+    p = cell.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("COMUNICAÇÃO ASSERTIVA")
+    r.bold = True
+    r.font.name = "Aptos Display"
+    r.font.size = Pt(24)
+    r.font.color.rgb = RGBColor(255, 255, 255)
+    p = cell.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("Inteligência Emocional e Comunicação Não Violenta")
+    r.bold = True
+    r.font.size = Pt(14)
+    r.font.color.rgb = RGBColor.from_string("DDEAFF")
+
+    add_color_signature(doc)
+    doc.add_paragraph()
+
+    title = doc.add_paragraph(style="Title")
+    title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = title.add_run("O relatório que não ficará pronto")
+    run.bold = True
+    subtitle = doc.add_paragraph()
+    subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = subtitle.add_run("Estudo de caso em duas partes | Inteligência emocional aplicada à gestão")
+    run.italic = True
+    run.font.color.rgb = RGBColor.from_string(MUTED)
+
+    formadores = doc.add_table(rows=2, cols=1)
+    formadores.autofit = True
+    shade(formadores.cell(0, 0), WASH)
+    shade(formadores.cell(1, 0), "FFFFFF")
+    for cell in formadores.column_cells(0):
+        set_cell_margins(cell, top=150, start=240, bottom=150, end=240)
+    p = formadores.cell(0, 0).paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("FORMADORES")
+    r.bold = True
+    r.font.size = Pt(9)
+    r.font.color.rgb = RGBColor.from_string(GREEN)
+    p = formadores.cell(1, 0).paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("Ânderson Porto  •  Fernando de Assis Alves")
+    r.bold = True
+    r.font.size = Pt(11.5)
+    r.font.color.rgb = RGBColor.from_string(NAVY)
+
+    intro = doc.add_paragraph()
+    intro.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = intro.add_run("Caso fictício para uso formativo. Leia apenas a parte indicada pelo facilitador.")
+    r.bold = True
+    r.font.size = Pt(9.5)
+    r.font.color.rgb = RGBColor.from_string(MUTED)
+    doc.add_page_break()
+
+
+def configure_header_footer(section):
+    section.different_first_page_header_footer = True
+    section.header_distance = Cm(0.65)
+    section.footer_distance = Cm(0.65)
+    header = section.header
+    table = header.add_table(rows=1, cols=2, width=Cm(16.8))
+    table.columns[0].width = Cm(1.25)
+    table.columns[1].width = Cm(15.55)
+    logo_cell, text_cell = table.rows[0].cells
+    logo_cell.paragraphs[0].add_run().add_picture(str(LOGO), width=Cm(0.72))
+    p = text_cell.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    r = p.add_run("COMUNICAÇÃO ASSERTIVA · TJRS")
+    r.bold = True
+    r.font.size = Pt(8.5)
+    r.font.color.rgb = RGBColor.from_string(BLUE)
+    p = text_cell.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    r = p.add_run("Inteligência Emocional e Comunicação Não Violenta")
+    r.font.size = Pt(7.5)
+    r.font.color.rgb = RGBColor.from_string(MUTED)
+
+    footer = section.footer.paragraphs[0]
+    footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = footer.add_run("Ânderson Porto e Fernando de Assis Alves   •   ")
+    r.font.size = Pt(8)
+    r.font.color.rgb = RGBColor.from_string(MUTED)
+    add_page_number(footer)
+
+
 def add_case_box(doc, title, text):
     table = doc.add_table(rows=2, cols=1)
     table.autofit = True
-    shade(table.cell(0, 0), "1F4E5F")
-    shade(table.cell(1, 0), "EAF2F4")
+    shade(table.cell(0, 0), NAVY)
+    shade(table.cell(1, 0), "FFF8ED")
     for cell in table.column_cells(0):
         set_cell_margins(cell)
     p = table.cell(0, 0).paragraphs[0]
@@ -70,19 +202,23 @@ def add_question_table(doc, rows):
     hdr = table.rows[0]
     set_repeat_table_header(hdr)
     for cell, text in zip(hdr.cells, ("Pergunta de análise", "Registro do grupo")):
-        shade(cell, "1F4E5F")
+        shade(cell, NAVY)
         cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
         p = cell.paragraphs[0]
         r = p.add_run(text)
         r.bold = True
         r.font.color.rgb = RGBColor(255, 255, 255)
-    for prompt in rows:
+    for index, prompt in enumerate(rows):
         cells = table.add_row().cells
         cells[0].text = prompt
         cells[1].text = "\n\n\n"
         for cell in cells:
             set_cell_margins(cell)
             cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
+            if index % 2 == 0:
+                shade(cell, WASH)
+        cells[0].paragraphs[0].runs[0].font.color.rgb = RGBColor.from_string(INK)
+        cells[0].paragraphs[0].runs[0].bold = True
     doc.add_paragraph()
 
 
@@ -102,6 +238,7 @@ def build():
     section.bottom_margin = Cm(1.7)
     section.left_margin = Cm(2.0)
     section.right_margin = Cm(2.0)
+    configure_header_footer(section)
 
     styles = doc.styles
     normal = styles["Normal"]
@@ -109,9 +246,9 @@ def build():
     normal.font.size = Pt(10.5)
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), "Aptos")
     for style_name, size, color in (
-        ("Title", 24, "173B48"),
-        ("Heading 1", 17, "173B48"),
-        ("Heading 2", 13, "B45F3A"),
+        ("Title", 24, NAVY),
+        ("Heading 1", 17, BLUE),
+        ("Heading 2", 13, ORANGE),
     ):
         style = styles[style_name]
         style.font.name = "Aptos Display"
@@ -119,22 +256,7 @@ def build():
         style.font.color.rgb = RGBColor.from_string(color)
         style._element.rPr.rFonts.set(qn("w:eastAsia"), "Aptos Display")
 
-    title = doc.add_paragraph(style="Title")
-    title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = title.add_run("O relatório que não ficará pronto")
-    run.bold = True
-    subtitle = doc.add_paragraph()
-    subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = subtitle.add_run("Estudo de caso em duas partes | Inteligência emocional aplicada à gestão")
-    run.italic = True
-    run.font.color.rgb = RGBColor.from_string("506B75")
-
-    intro = doc.add_paragraph()
-    intro.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = intro.add_run("Caso fictício para uso formativo. Leia apenas a parte indicada pelo facilitador.")
-    r.bold = True
-    r.font.size = Pt(10)
-    doc.add_paragraph()
+    add_cover(doc)
 
     doc.add_heading("Orientação para o trabalho em grupo", level=1)
     add_body_paragraph(doc, "O caso foi construído com informações deliberadamente incompletas. O objetivo não é decidir rapidamente quem está certo, diagnosticar pessoas ou oferecer uma solução imediata. A tarefa é observar como fatos, interpretações, estados corporais, emoções, impulsos e escolhas comunicacionais se relacionam em uma situação de gestão.")
@@ -188,7 +310,7 @@ def build():
     hdr = table.rows[0]
     set_repeat_table_header(hdr)
     for cell, text in zip(hdr.cells, ("Conceito", "Aplicação no caso")):
-        shade(cell, "1F4E5F")
+        shade(cell, NAVY)
         r = cell.paragraphs[0].add_run(text)
         r.bold = True
         r.font.color.rgb = RGBColor(255, 255, 255)
@@ -201,15 +323,9 @@ def build():
             set_cell_margins(cell)
             cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
 
-    footer = section.footer.paragraphs[0]
-    footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = footer.add_run("Comunicação Assertiva | Formação de gestores | TJRS")
-    r.font.size = Pt(8)
-    r.font.color.rgb = RGBColor.from_string("6A7D84")
-
     doc.core_properties.title = "O relatório que não ficará pronto"
     doc.core_properties.subject = "Estudo de caso em duas partes sobre inteligência emocional aplicada à gestão"
-    doc.core_properties.author = "Anderson Porto e Fernando Alves"
+    doc.core_properties.author = "Ânderson Porto e Fernando de Assis Alves"
     doc.save(OUT)
     print(OUT)
 
