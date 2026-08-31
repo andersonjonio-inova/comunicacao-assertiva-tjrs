@@ -176,6 +176,17 @@
       @keyframes signalPulse{to{transform:scale(1.035);opacity:.82}}
       @keyframes logoFloat{50%{transform:translateY(-8px) rotate(1deg)}}
     }
+    /* Apresentacao direta: todo o conteudo aparece imediatamente. */
+    .slide,.slide.active,.slide.leaving,.slide *,.slide:before,.slide:after{
+      animation:none!important;
+      transition:none!important;
+    }
+    .fragment,.fragment.is-visible{
+      opacity:1!important;
+      visibility:visible!important;
+      transform:none!important;
+      filter:none!important;
+    }
     .video-slide{--accent:var(--orange)}
     .video-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(380px,1.1fr);gap:clamp(28px,4vw,64px);align-items:center;width:100%;max-width:1320px}
     .video-copy{display:grid;align-content:center;gap:18px}.video-copy h2{font-size:clamp(38px,4vw,62px);line-height:1.03}.video-copy p{color:var(--muted);font-size:clamp(18px,1.55vw,24px);line-height:1.42}
@@ -321,8 +332,8 @@
     slides.forEach(slide=>{slide._fragments=[...slide.querySelectorAll(fragmentSelector)];slide._fragments.forEach(el=>el.classList.add('fragment'));slide._fragmentIndex=0});
     function setFragments(slide,count){slide._fragmentIndex=Math.max(0,Math.min(count,slide._fragments.length));slide._fragments.forEach((el,i)=>el.classList.toggle('is-visible',i<slide._fragmentIndex))}
     function show(n,revealAll=false){if(n<0||n>=slides.length||n===current)return;const old=slides[current];old.classList.add('leaving');old.classList.remove('active');current=n;setFragments(slides[current],revealAll?slides[current]._fragments.length:Math.min(1,slides[current]._fragments.length));slides[current].classList.add('active');setTimeout(()=>old.classList.remove('leaving'),650);closeMenu();setSuggestedTime();sync()}
-    function advance(){const slide=slides[current];if(slide._fragmentIndex<slide._fragments.length){setFragments(slide,slide._fragmentIndex+1);return}show(current+1,false)}
-    function retreat(){const slide=slides[current];if(slide._fragmentIndex>0){setFragments(slide,slide._fragmentIndex-1);return}show(current-1,true)}
+    function advance(){show(current+1,true)}
+    function retreat(){show(current-1,true)}
     function sync(){counter.textContent=`${String(current+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;bar.style.width=`${(current+1)/slides.length*100}%`;noteText.textContent=(slides[current].dataset.note||'').replace(/ (ROTEIRO DE FALA|EXPLICAÇÃO|TRANSIÇÃO):/g,'\n\n$1:');document.title=`${current+1}/${slides.length} · ${slides[current].dataset.title} | Dia 1`;history.replaceState(null,'',`#${current+1}`);nav.forEach(b=>b.classList.toggle('active',b.dataset.topic===slides[current].dataset.topic))}
     function setSuggestedTime(){pauseTimer();remaining=(Number(slides[current].dataset.duration)||0)*60;timerStartValue=remaining;paintTimer()}
     function timerText(){return `${String(Math.floor(remaining/60)).padStart(2,'0')}:${String(remaining%60).padStart(2,'0')}`}
@@ -341,5 +352,5 @@
     addEventListener('fullscreenchange',syncFullscreen);syncFullscreen();
     addEventListener('keydown',e=>{if(['INPUT','BUTTON'].includes(document.activeElement.tagName)&&e.key!=='Escape'&&e.key!=='Enter')return;if(e.key==='Enter'&&timerPanel.classList.contains('open')){applyTimer();return}if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();advance()}if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();retreat()}if(e.key.toLowerCase()==='n')notes.classList.toggle('show');if(e.key.toLowerCase()==='f')document.querySelector('#full').click();if(e.key.toLowerCase()==='t')toggleTimer();if(e.key.toLowerCase()==='r')resetTimer();if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1,true);if(e.key==='Escape'){closeMenu();closeTimerPanel()}});
     let tx=0;addEventListener('touchstart',e=>tx=e.changedTouches[0].screenX,{passive:true});addEventListener('touchend',e=>{const d=e.changedTouches[0].screenX-tx;if(Math.abs(d)>50)(d<0?advance:retreat)()},{passive:true});
-    const hash=Math.max(1,Math.min(slides.length,parseInt(location.hash.slice(1))||1));current=hash-1;slides.forEach(s=>s.classList.remove('active'));setFragments(slides[current],Math.min(1,slides[current]._fragments.length));slides[current].classList.add('active');setSuggestedTime();sync();
+    const hash=Math.max(1,Math.min(slides.length,parseInt(location.hash.slice(1))||1));current=hash-1;slides.forEach(s=>s.classList.remove('active'));setFragments(slides[current],slides[current]._fragments.length);slides[current].classList.add('active');setSuggestedTime();sync();
   </script></body></html>
