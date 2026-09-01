@@ -17,6 +17,7 @@
     h1,h2,p{margin:0}h1,h2{max-width:1120px;font-family:"Aptos Display","Segoe UI",Arial,sans-serif;font-weight:800;line-height:1;letter-spacing:-.045em}h1{font-size:clamp(52px,6.3vw,98px)}h2{font-size:clamp(42px,4.15vw,64px)}h2:after{content:"";display:block;width:clamp(68px,8vw,132px);height:6px;margin-top:18px;border-radius:99px;background:linear-gradient(90deg,var(--blue) 0 44%,var(--green) 44% 76%,var(--orange) 76%)}.cover h1{color:#fff;text-shadow:0 8px 36px rgba(0,0,0,.15)}.title-detail{display:block;margin-top:.14em;color:#dcedff;font-size:.68em}.lead{max-width:990px;margin-top:25px;color:var(--muted);font-size:clamp(20px,2vw,29px);line-height:1.4}.cover .lead{color:#e2edf8}.status{display:inline-flex;margin-top:30px;padding:11px 16px;border-radius:999px;background:var(--yellow);color:#17365e;font-size:clamp(14px,1.1vw,17px);font-weight:850}
     .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%;margin-top:32px}.card{min-height:185px;padding:28px;border:1px solid rgba(23,72,143,.12);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(247,250,253,.9));box-shadow:0 18px 55px rgba(14,47,102,.12)}.card b{display:block;margin-bottom:14px;color:var(--blue);font-size:14px;letter-spacing:.12em;text-transform:uppercase}.card p{color:var(--muted);font-size:clamp(18px,1.55vw,24px);line-height:1.38}
     .chrome{position:fixed;z-index:40;left:calc(var(--side) + 18px);right:18px;bottom:13px;display:flex;align-items:center;gap:10px;padding:7px 9px;border:1px solid rgba(23,72,143,.1);border-radius:999px;background:rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(14,47,102,.1);color:var(--muted);font-size:12px;font-weight:800}.progress{height:3px;flex:1;overflow:hidden;border-radius:99px;background:#dce5ef}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green),var(--orange));transition:width .25s var(--ease)}.control{border:0;border-radius:999px;padding:8px 11px;background:transparent;color:var(--navy);cursor:pointer}.control:hover,.control:focus-visible{outline:0;background:#edf4fb}.counter{min-width:52px;text-align:center}
+    .timer-wrap{position:relative}.timerbox{display:flex;align-items:center;gap:5px;padding:2px 5px;border:1px solid #cbd8e6;border-radius:999px;background:#fff}.timer{min-width:55px;padding:0;border:0;background:transparent;color:var(--blue);font:900 13px/1 "Aptos","Segoe UI",sans-serif;font-variant-numeric:tabular-nums;text-align:center;cursor:pointer}.timer:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}.timerbox.running{border-color:var(--green);box-shadow:0 0 0 3px rgba(118,184,42,.12)}.timerbox.done{border-color:var(--orange);background:#fff0e3}.timer-panel{position:absolute;right:0;bottom:calc(100% + 12px);width:320px;padding:18px;border:1px solid #cbd8e6;border-radius:20px;background:rgba(255,255,255,.98);box-shadow:0 20px 60px rgba(14,47,102,.22);opacity:0;visibility:hidden;translate:0 8px;transition:.2s var(--ease)}.timer-panel.open{opacity:1;visibility:visible;translate:0}.timer-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.timer-panel-head b{color:var(--navy);font-size:15px}.timer-close{border:0;background:transparent;color:var(--muted);font-size:20px;cursor:pointer}.timer-fields{display:grid;grid-template-columns:1fr 16px 1fr;gap:8px;align-items:end}.timer-field label{display:block;margin-bottom:6px;color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.timer-field input{width:100%;padding:10px;border:1px solid #cbd8e6;border-radius:11px;color:var(--navy);font-size:22px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums}.timer-separator{padding-bottom:11px;color:var(--blue);font-size:24px;text-align:center}.timer-presets{display:flex;gap:6px;margin:12px 0}.timer-presets button{flex:1;padding:7px 4px;border:1px solid #dce5ef;border-radius:9px;background:#f4f8fc;color:var(--blue);font-size:11px;font-weight:900;cursor:pointer}.timer-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.timer-actions button{padding:10px;border:0;border-radius:11px;background:var(--blue);color:#fff;font-size:12px;font-weight:900;cursor:pointer}.timer-actions .timer-popout{background:#447e1f}
     @media(max-width:980px){:root{--side:0px}.sidebar{display:none}.deck{left:0}.slide{align-content:start;overflow-y:auto;padding:72px 34px 112px}.grid{grid-template-columns:1fr}.chrome{left:16px;right:16px;bottom:9px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
   </style>
@@ -48,28 +49,61 @@
     <div class="progress" aria-hidden="true"><i></i></div>
     <span class="counter"></span>
     <button class="control" id="next" type="button" aria-label="Próximo slide">→</button>
+    <div class="timer-wrap">
+      <div class="timerbox" id="timerbox">
+        <button class="control" id="timerToggle" type="button" title="Iniciar ou pausar temporizador (T)" aria-label="Iniciar ou pausar temporizador">▶</button>
+        <button class="timer" id="timer" type="button" title="Definir tempo" aria-expanded="false">00:00</button>
+        <button class="control" id="timerReset" type="button" title="Reiniciar temporizador (R)" aria-label="Reiniciar temporizador">↺</button>
+      </div>
+      <div class="timer-panel" id="timerPanel" role="dialog" aria-label="Configurar timer">
+        <div class="timer-panel-head"><b>Definir timer</b><button class="timer-close" id="timerClose" type="button" aria-label="Fechar">×</button></div>
+        <div class="timer-fields">
+          <div class="timer-field"><label for="timerMinutes">Minutos</label><input id="timerMinutes" type="number" min="0" max="180" value="5" inputmode="numeric"></div>
+          <div class="timer-separator">:</div>
+          <div class="timer-field"><label for="timerSeconds">Segundos</label><input id="timerSeconds" type="number" min="0" max="59" value="0" inputmode="numeric"></div>
+        </div>
+        <div class="timer-presets" aria-label="Tempos rápidos"><button type="button" data-timer-minutes="1">1 min</button><button type="button" data-timer-minutes="3">3 min</button><button type="button" data-timer-minutes="5">5 min</button><button type="button" data-timer-minutes="10">10 min</button><button type="button" data-timer-minutes="15">15 min</button></div>
+        <div class="timer-actions"><button id="timerApply" type="button">Aplicar tempo</button><button class="timer-popout" id="timerPopout" type="button">Destacar timer ↗</button></div>
+      </div>
+    </div>
     <button class="control" id="fullscreen" type="button" aria-label="Tela cheia">⛶</button>
   </div>
   <script>
     const slides=[...document.querySelectorAll('.slide')],nav=document.querySelector('.nav'),counter=document.querySelector('.counter'),bar=document.querySelector('.progress i');
-    let current=0;
+    const timer=document.querySelector('#timer'),timerbox=document.querySelector('#timerbox'),timerToggle=document.querySelector('#timerToggle'),timerPanel=document.querySelector('#timerPanel'),timerMinutes=document.querySelector('#timerMinutes'),timerSeconds=document.querySelector('#timerSeconds');
+    let current=0,remaining=0,running=false,timerId=null,timerStartValue=0,timerWindow=null;
     slides.forEach((slide,index)=>{const button=document.createElement('button');button.type='button';button.textContent=slide.dataset.title||`Slide ${index+1}`;button.addEventListener('click',()=>show(index));nav.appendChild(button)});
     const navButtons=[...nav.querySelectorAll('button')];
     function show(index){current=Math.max(0,Math.min(index,slides.length-1));slides.forEach((slide,i)=>slide.classList.toggle('active',i===current));navButtons.forEach((button,i)=>button.classList.toggle('active',i===current));counter.textContent=`${current+1} / ${slides.length}`;bar.style.width=`${((current+1)/slides.length)*100}%`;history.replaceState(null,'',`#${current+1}`)}
+    function timerText(){return `${String(Math.floor(remaining/60)).padStart(2,'0')}:${String(remaining%60).padStart(2,'0')}`}
+    function paintTimer(){const text=timerText(),done=remaining===0&&timerStartValue>0;timer.textContent=text;timerbox.classList.toggle('done',done);timerbox.classList.toggle('running',running);timerToggle.textContent=running?'Ⅱ':'▶';if(timerWindow&&!timerWindow.closed)timerWindow.postMessage({type:'timer-state',text,running,done},location.origin)}
+    function pauseTimer(){running=false;clearInterval(timerId);paintTimer()}
+    function toggleTimer(){if(running){pauseTimer();return}if(remaining<=0){remaining=timerStartValue||300;timerStartValue=remaining}running=true;timerId=setInterval(()=>{remaining=Math.max(0,remaining-1);paintTimer();if(!remaining)pauseTimer()},1000);paintTimer()}
+    function resetTimer(){pauseTimer();remaining=timerStartValue;paintTimer()}
+    function openTimerPanel(){timerMinutes.value=Math.floor(remaining/60);timerSeconds.value=remaining%60;timerPanel.classList.add('open');timer.setAttribute('aria-expanded','true');timerMinutes.focus();timerMinutes.select()}
+    function closeTimerPanel(){timerPanel.classList.remove('open');timer.setAttribute('aria-expanded','false');focusPresentation()}
+    function applyTimer(){const mins=Math.max(0,Math.min(180,Number(timerMinutes.value)||0)),secs=Math.max(0,Math.min(59,Number(timerSeconds.value)||0));pauseTimer();remaining=mins*60+secs;timerStartValue=remaining;paintTimer();closeTimerPanel()}
+    function openTimerWindow(){if(timerWindow&&!timerWindow.closed){timerWindow.focus();paintTimer();return}timerWindow=window.open('','timerDestaque','popup,width=560,height=300,resizable=yes');if(!timerWindow){alert('O navegador bloqueou a janela do timer. Autorize pop-ups para esta página.');return}timerWindow.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Timer da atividade</title><style>*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}body{display:grid;place-items:center;background:#0e2f66;color:#fff;font-family:Aptos,"Segoe UI",Arial,sans-serif;transition:background .25s}.shell{text-align:center}.label{font-size:clamp(14px,4vw,22px);font-weight:850;letter-spacing:.16em;text-transform:uppercase;opacity:.72}.time{margin-top:5px;font-size:clamp(82px,25vw,170px);font-weight:950;line-height:.9;letter-spacing:-.07em;font-variant-numeric:tabular-nums}.state{margin-top:14px;font-size:clamp(13px,3vw,19px);font-weight:800}body.running{background:#17663f}body.done{background:#a93b27}.pulse{animation:pulse .9s ease-in-out infinite alternate}@keyframes pulse{to{opacity:.55}}@media(prefers-reduced-motion:reduce){.pulse{animation:none}}</style></head><body><main class="shell"><div class="label">Tempo da atividade</div><div class="time" id="time">${timerText()}</div><div class="state" id="state">Timer pausado</div></main><script>addEventListener('message',e=>{if(e.origin!==location.origin)return;const d=e.data;if(d.type!=='timer-state')return;time.textContent=d.text;state.textContent=d.done?'Tempo encerrado':d.running?'Timer em andamento':'Timer pausado';document.body.className=d.done?'done pulse':d.running?'running':'paused'});opener.postMessage({type:'timer-ready'},location.origin)<\/script></body></html>`);timerWindow.document.close();closeTimerPanel();setTimeout(paintTimer,100)}
     const presentationSurface=document.body;
     const focusPresentation=()=>{if(!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))presentationSurface.focus({preventScroll:true})};
     document.querySelector('#prev').addEventListener('click',()=>{show(current-1);focusPresentation()});
     document.querySelector('#next').addEventListener('click',()=>{show(current+1);focusPresentation()});
     document.querySelector('#fullscreen').addEventListener('click',()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen());
+    timerToggle.addEventListener('click',toggleTimer);timer.addEventListener('click',openTimerPanel);document.querySelector('#timerReset').addEventListener('click',resetTimer);document.querySelector('#timerClose').addEventListener('click',closeTimerPanel);document.querySelector('#timerApply').addEventListener('click',applyTimer);document.querySelector('#timerPopout').addEventListener('click',openTimerWindow);document.querySelectorAll('[data-timer-minutes]').forEach(button=>button.addEventListener('click',()=>{timerMinutes.value=button.dataset.timerMinutes;timerSeconds.value=0}));window.addEventListener('message',event=>{if(event.origin===location.origin&&event.data?.type==='timer-ready')paintTimer()});
     document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement)focusPresentation()});
     window.addEventListener('keydown',event=>{
       const key=event.key||event.code;
+      const editing=['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName);
+      if(editing){if(key==='Enter'&&timerPanel.classList.contains('open')){event.preventDefault();applyTimer()}else if(key==='Escape')closeTimerPanel();return}
       const forward=['ArrowRight','ArrowDown','PageDown',' ','Space','Spacebar'];
       const backward=['ArrowLeft','ArrowUp','PageUp','Backspace'];
       if(forward.includes(key)){event.preventDefault();event.stopPropagation();show(current+1);focusPresentation();return}
       if(backward.includes(key)){event.preventDefault();event.stopPropagation();show(current-1);focusPresentation();return}
       if(key==='Home'){event.preventDefault();show(0);return}
       if(key==='End'){event.preventDefault();show(slides.length-1);return}
+      if(key.toLowerCase()==='t'){event.preventDefault();toggleTimer();return}
+      if(key.toLowerCase()==='r'){event.preventDefault();resetTimer();return}
+      if(key==='Escape'){closeTimerPanel();return}
       if(key.toLowerCase()==='f'){event.preventDefault();document.querySelector('#fullscreen').click()}
     },true);
     const initial=Number(location.hash.slice(1))-1;show(Number.isInteger(initial)&&initial>=0?initial:0);
