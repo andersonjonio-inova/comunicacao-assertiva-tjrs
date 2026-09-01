@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Comunicação Assertiva · Dia 2</title>
+  <meta name="description" content="Apresentação principal e atualizada do Dia 2 do curso de Comunicação Assertiva para gestores do TJRS.">
+  <style>
+    :root{--blue:#17488f;--navy:#0e2f66;--green:#76b82a;--orange:#f39a24;--yellow:#ffd21d;--ink:#15243a;--muted:#617087;--paper:#fff;--line:#dce5ef;--side:216px;--ease:cubic-bezier(.22,1,.36,1)}
+    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:"Aptos","Segoe UI",Arial,sans-serif;background:var(--navy);color:var(--ink)}button{font:inherit}
+    .sidebar{position:fixed;z-index:30;inset:0 auto 0 0;width:var(--side);padding:22px 14px 80px;background:linear-gradient(165deg,var(--navy),var(--blue) 45%,#0b5f59);color:#fff;box-shadow:12px 0 38px rgba(14,47,102,.18)}
+    .sidebar:after{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg,var(--yellow),var(--orange),var(--green))}.brand{display:flex;align-items:center;gap:10px;padding:0 6px 19px;border-bottom:1px solid rgba(255,255,255,.15)}.brand img{width:46px;height:46px;border:3px solid rgba(255,255,255,.8);border-radius:50%;object-fit:cover}.brand b{font-size:14px;line-height:1.15}.brand span{display:block;margin-top:4px;color:#bcd2ea;font-size:11px;line-height:1.25}
+    .nav{position:relative;display:grid;gap:5px;margin-top:15px;padding-left:4px}.nav:before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:1px;background:rgba(255,255,255,.18)}.nav button{position:relative;min-height:48px;width:100%;padding:10px 10px 10px 28px;border:0;border-radius:12px;background:transparent;color:#cfdef0;text-align:left;cursor:pointer;font-size:12px;font-weight:750}.nav button:before{content:"";position:absolute;left:10px;top:20px;z-index:2;width:8px;height:8px;border:2px solid rgba(255,255,255,.28);border-radius:50%;background:var(--blue)}.nav button.active{background:linear-gradient(90deg,rgba(255,255,255,.17),rgba(255,255,255,.07));color:#fff}.nav button.active:before{border-color:#fff;background:var(--yellow);box-shadow:0 0 0 5px rgba(255,210,29,.16)}
+    .deck{position:fixed;inset:0 0 0 var(--side);background:var(--paper);box-shadow:-18px 0 60px rgba(5,25,58,.16)}.slide{position:absolute;inset:0;display:grid;align-content:center;padding:50px clamp(58px,5vw,88px) 72px;opacity:0;visibility:hidden;transform:translateX(4%) scale(.992);transition:opacity .28s var(--ease),transform .35s var(--ease),visibility 0s .4s;overflow:hidden;background:radial-gradient(circle at 92% 13%,rgba(118,184,42,.11),transparent 22%),radial-gradient(circle at 78% 88%,rgba(243,154,36,.08),transparent 25%),linear-gradient(135deg,#fff 0%,#fbfdff 64%,#f2f7fb 100%)}.slide.active{opacity:1;visibility:visible;transform:none;transition-delay:0s}.slide:before{content:"";position:absolute;width:min(62vw,900px);aspect-ratio:1;right:-31vw;top:48%;translate:0 -50%;border:1px solid rgba(23,72,143,.13);border-radius:50%;box-shadow:0 0 0 54px rgba(118,184,42,.055),0 0 0 108px rgba(23,72,143,.038),0 0 0 162px rgba(243,154,36,.03)}.slide:after{content:"";position:absolute;left:0;top:0;width:5px;height:100%;background:linear-gradient(180deg,var(--blue) 0 42%,var(--green) 42% 74%,var(--orange) 74%)}.slide>*{position:relative;z-index:2}
+    .slide.cover{background:radial-gradient(circle at 85% 48%,rgba(118,184,42,.34),transparent 21%),radial-gradient(circle at 76% 48%,rgba(243,154,36,.16),transparent 36%),linear-gradient(128deg,var(--navy),var(--blue) 53%,#0b5f59);color:#fff}.cover:before{right:-18vw;border-color:rgba(255,255,255,.2);box-shadow:0 0 0 58px rgba(255,255,255,.06),0 0 0 116px rgba(255,210,29,.06),0 0 0 174px rgba(255,255,255,.035)}.cover:after{width:8px;background:linear-gradient(var(--yellow),var(--green),var(--orange))}
+    .kicker{display:flex;align-items:center;gap:12px;width:max-content;margin-bottom:18px;padding:8px 13px;border:1px solid rgba(23,72,143,.13);border-radius:999px;background:rgba(255,255,255,.68);color:var(--blue);font-size:clamp(12px,1vw,16px);font-weight:850;text-transform:uppercase;letter-spacing:.13em}.kicker:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(118,184,42,.17)}.cover .kicker{color:#fff;border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+    h1,h2,p{margin:0}h1,h2{max-width:1120px;font-family:"Aptos Display","Segoe UI",Arial,sans-serif;font-weight:800;line-height:1;letter-spacing:-.045em}h1{font-size:clamp(52px,6.3vw,98px)}h2{font-size:clamp(42px,4.15vw,64px)}h2:after{content:"";display:block;width:clamp(68px,8vw,132px);height:6px;margin-top:18px;border-radius:99px;background:linear-gradient(90deg,var(--blue) 0 44%,var(--green) 44% 76%,var(--orange) 76%)}.cover h1{color:#fff;text-shadow:0 8px 36px rgba(0,0,0,.15)}.title-detail{display:block;margin-top:.14em;color:#dcedff;font-size:.68em}.lead{max-width:990px;margin-top:25px;color:var(--muted);font-size:clamp(20px,2vw,29px);line-height:1.4}.cover .lead{color:#e2edf8}.status{display:inline-flex;margin-top:30px;padding:11px 16px;border-radius:999px;background:var(--yellow);color:#17365e;font-size:clamp(14px,1.1vw,17px);font-weight:850}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%;margin-top:32px}.card{min-height:185px;padding:28px;border:1px solid rgba(23,72,143,.12);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(247,250,253,.9));box-shadow:0 18px 55px rgba(14,47,102,.12)}.card b{display:block;margin-bottom:14px;color:var(--blue);font-size:14px;letter-spacing:.12em;text-transform:uppercase}.card p{color:var(--muted);font-size:clamp(18px,1.55vw,24px);line-height:1.38}
+    .chrome{position:fixed;z-index:40;left:calc(var(--side) + 18px);right:18px;bottom:13px;display:flex;align-items:center;gap:10px;padding:7px 9px;border:1px solid rgba(23,72,143,.1);border-radius:999px;background:rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(14,47,102,.1);color:var(--muted);font-size:12px;font-weight:800}.progress{height:3px;flex:1;overflow:hidden;border-radius:99px;background:#dce5ef}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green),var(--orange));transition:width .25s var(--ease)}.control{border:0;border-radius:999px;padding:8px 11px;background:transparent;color:var(--navy);cursor:pointer}.control:hover,.control:focus-visible{outline:0;background:#edf4fb}.counter{min-width:52px;text-align:center}
+    @media(max-width:980px){:root{--side:0px}.sidebar{display:none}.deck{left:0}.slide{align-content:start;overflow-y:auto;padding:72px 34px 112px}.grid{grid-template-columns:1fr}.chrome{left:16px;right:16px;bottom:9px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Navegação da apresentação">
+    <div class="brand"><img src="../assets/logo-cjud.jpg" alt="CJUD"><div><b>Comunicação Assertiva</b><span>Formação de Gestores · TJRS · Dia 2</span></div></div>
+    <nav class="nav"></nav>
+  </aside>
+  <main class="deck">
+    <section class="slide cover active" data-title="Abertura">
+      <div class="kicker">Formação de Gestores · TJRS · Dia 2</div>
+      <h1>Comunicação Assertiva<span class="title-detail">Inteligência Emocional e Comunicação Não Violenta</span></h1>
+      <p class="lead">Apresentação independente do segundo dia, preparada na mesma estrutura visual e funcional do Dia 1.</p>
+      <span class="status">Arquivo principal do Dia 2</span>
+    </section>
+    <section class="slide" data-title="Estrutura">
+      <div class="kicker">Dia 2 · Estrutura inicial</div>
+      <h2>Apresentação separada e pronta para evolução</h2>
+      <div class="grid">
+        <article class="card"><b>Fonte única</b><p>Todas as próximas alterações serão feitas neste arquivo principal.</p></article>
+        <article class="card"><b>Histórico protegido</b><p>Antes de cada edição, a versão vigente será copiada para a pasta de backups.</p></article>
+        <article class="card"><b>Link permanente</b><p>O mesmo endereço público sempre mostrará a versão mais recente do Dia 2.</p></article>
+      </div>
+    </section>
+  </main>
+  <div class="chrome" aria-label="Controles da apresentação">
+    <button class="control" id="prev" type="button" aria-label="Slide anterior">←</button>
+    <div class="progress" aria-hidden="true"><i></i></div>
+    <span class="counter"></span>
+    <button class="control" id="next" type="button" aria-label="Próximo slide">→</button>
+    <button class="control" id="fullscreen" type="button" aria-label="Tela cheia">⛶</button>
+  </div>
+  <script>
+    const slides=[...document.querySelectorAll('.slide')],nav=document.querySelector('.nav'),counter=document.querySelector('.counter'),bar=document.querySelector('.progress i');
+    let current=0;
+    slides.forEach((slide,index)=>{const button=document.createElement('button');button.type='button';button.textContent=slide.dataset.title||`Slide ${index+1}`;button.addEventListener('click',()=>show(index));nav.appendChild(button)});
+    const navButtons=[...nav.querySelectorAll('button')];
+    function show(index){current=Math.max(0,Math.min(index,slides.length-1));slides.forEach((slide,i)=>slide.classList.toggle('active',i===current));navButtons.forEach((button,i)=>button.classList.toggle('active',i===current));counter.textContent=`${current+1} / ${slides.length}`;bar.style.width=`${((current+1)/slides.length)*100}%`;history.replaceState(null,'',`#${current+1}`)}
+    document.querySelector('#prev').addEventListener('click',()=>show(current-1));document.querySelector('#next').addEventListener('click',()=>show(current+1));document.querySelector('#fullscreen').addEventListener('click',()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen());
+    document.addEventListener('keydown',event=>{if(['ArrowRight','PageDown',' '].includes(event.key)){event.preventDefault();show(current+1)}if(['ArrowLeft','PageUp'].includes(event.key)){event.preventDefault();show(current-1)}if(event.key==='Home')show(0);if(event.key==='End')show(slides.length-1);if(event.key.toLowerCase()==='f')document.querySelector('#fullscreen').click()});
+    const initial=Number(location.hash.slice(1))-1;show(Number.isInteger(initial)&&initial>=0?initial:0);
+  </script>
+</body>
+</html>
