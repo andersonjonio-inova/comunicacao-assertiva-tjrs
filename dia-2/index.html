@@ -3,8 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="app-version" content="2026-09-01.1">
   <title>Comunicação Assertiva · Dia 2</title>
   <meta name="description" content="Apresentação principal e atualizada do Dia 2 do curso de Comunicação Assertiva para gestores do TJRS.">
+  <script>
+    (()=>{
+      const currentVersion=document.querySelector('meta[name="app-version"]')?.content;
+      const freshUrl=new URL(location.href);
+      freshUrl.hash='';
+      freshUrl.searchParams.delete('v');
+      freshUrl.searchParams.set('_update',Date.now());
+      fetch(freshUrl,{cache:'no-store'})
+        .then(response=>response.ok?response.text():Promise.reject())
+        .then(html=>{
+          const latestVersion=new DOMParser().parseFromString(html,'text/html').querySelector('meta[name="app-version"]')?.content;
+          if(!latestVersion||latestVersion===currentVersion)return;
+          const updatedUrl=new URL(location.href);
+          updatedUrl.searchParams.delete('_update');
+          updatedUrl.searchParams.set('v',latestVersion);
+          location.replace(updatedUrl);
+        })
+        .catch(()=>{});
+    })();
+  </script>
   <style>
     :root{--blue:#17488f;--navy:#0e2f66;--green:#76b82a;--orange:#f39a24;--yellow:#ffd21d;--ink:#15243a;--muted:#617087;--paper:#fff;--line:#dce5ef;--side:216px;--ease:cubic-bezier(.22,1,.36,1)}
     *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{font-family:"Aptos","Segoe UI",Arial,sans-serif;background:var(--navy);color:var(--ink)}button{font:inherit}
