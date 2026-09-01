@@ -21,7 +21,7 @@
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
   </style>
 </head>
-<body>
+<body tabindex="-1">
   <aside class="sidebar" aria-label="Navegação da apresentação">
     <div class="brand"><img src="../assets/logo-cjud.jpg" alt="CJUD"><div><b>Comunicação Assertiva</b><span>Formação de Gestores · TJRS · Dia 2</span></div></div>
     <nav class="nav"></nav>
@@ -56,8 +56,22 @@
     slides.forEach((slide,index)=>{const button=document.createElement('button');button.type='button';button.textContent=slide.dataset.title||`Slide ${index+1}`;button.addEventListener('click',()=>show(index));nav.appendChild(button)});
     const navButtons=[...nav.querySelectorAll('button')];
     function show(index){current=Math.max(0,Math.min(index,slides.length-1));slides.forEach((slide,i)=>slide.classList.toggle('active',i===current));navButtons.forEach((button,i)=>button.classList.toggle('active',i===current));counter.textContent=`${current+1} / ${slides.length}`;bar.style.width=`${((current+1)/slides.length)*100}%`;history.replaceState(null,'',`#${current+1}`)}
-    document.querySelector('#prev').addEventListener('click',()=>show(current-1));document.querySelector('#next').addEventListener('click',()=>show(current+1));document.querySelector('#fullscreen').addEventListener('click',()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen());
-    document.addEventListener('keydown',event=>{if(['ArrowRight','PageDown',' '].includes(event.key)){event.preventDefault();show(current+1)}if(['ArrowLeft','PageUp'].includes(event.key)){event.preventDefault();show(current-1)}if(event.key==='Home')show(0);if(event.key==='End')show(slides.length-1);if(event.key.toLowerCase()==='f')document.querySelector('#fullscreen').click()});
+    const presentationSurface=document.body;
+    const focusPresentation=()=>{if(!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))presentationSurface.focus({preventScroll:true})};
+    document.querySelector('#prev').addEventListener('click',()=>{show(current-1);focusPresentation()});
+    document.querySelector('#next').addEventListener('click',()=>{show(current+1);focusPresentation()});
+    document.querySelector('#fullscreen').addEventListener('click',()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen());
+    document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement)focusPresentation()});
+    window.addEventListener('keydown',event=>{
+      const key=event.key||event.code;
+      const forward=['ArrowRight','ArrowDown','PageDown',' ','Space','Spacebar'];
+      const backward=['ArrowLeft','ArrowUp','PageUp','Backspace'];
+      if(forward.includes(key)){event.preventDefault();event.stopPropagation();show(current+1);focusPresentation();return}
+      if(backward.includes(key)){event.preventDefault();event.stopPropagation();show(current-1);focusPresentation();return}
+      if(key==='Home'){event.preventDefault();show(0);return}
+      if(key==='End'){event.preventDefault();show(slides.length-1);return}
+      if(key.toLowerCase()==='f'){event.preventDefault();document.querySelector('#fullscreen').click()}
+    },true);
     const initial=Number(location.hash.slice(1))-1;show(Number.isInteger(initial)&&initial>=0?initial:0);
   </script>
 </body>
