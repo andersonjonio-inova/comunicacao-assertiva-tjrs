@@ -56,12 +56,18 @@ document.addEventListener('keydown', event => {
 });
 
 let touchStart = null;
-document.addEventListener('touchstart', event => { touchStart = event.changedTouches[0].clientX; }, { passive: true });
+let touchStartY = null;
+document.addEventListener('touchstart', event => {
+  touchStart = event.changedTouches[0].clientX;
+  touchStartY = event.changedTouches[0].clientY;
+}, { passive: true });
 document.addEventListener('touchend', event => {
   if (touchStart === null) return;
   const delta = event.changedTouches[0].clientX - touchStart;
-  if (Math.abs(delta) > 55) show(current + (delta < 0 ? 1 : -1));
+  const deltaY = event.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(delta) > 55 && Math.abs(delta) > Math.abs(deltaY)) show(current + (delta < 0 ? 1 : -1));
   touchStart = null;
+  touchStartY = null;
 }, { passive: true });
 
 const hashIndex = Number(location.hash.slice(1)) - 1;

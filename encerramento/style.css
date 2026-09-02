@@ -8,11 +8,11 @@
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; min-height: 100%; background: var(--deep); color: var(--ink); }
+html, body { margin: 0; width: 100%; min-height: 100%; min-height: 100dvh; background: var(--deep); color: var(--ink); }
 body { overflow: hidden; font-family: Georgia, "Times New Roman", serif; }
 button, .audio-button { font: 600 0.82rem/1 system-ui, sans-serif; }
 
-.deck, .slide { position: fixed; inset: 0; }
+.deck, .slide { position: fixed; inset: 0; width: 100%; height: 100%; height: 100dvh; }
 .slide {
   z-index: 0;
   opacity: 0;
@@ -125,17 +125,42 @@ h1 { margin: 0; max-width: 12ch; font-size: clamp(3rem, 8vw, 8.5rem); font-weigh
 #audio-file { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
 @media (max-width: 700px) {
-  .quote-slide .portrait { inset: 0 28% 34% 0; }
-  .quote-slide .portrait.second { inset: 0 0 34% 62%; }
+  .title-copy { align-self: end; width: auto; margin: 0 7vw 20vh; }
+  h1 { max-width: 9ch; font-size: clamp(3.1rem, 15vw, 5.8rem); }
+  .subtitle { margin-top: 1.25rem; }
+  .quote-slide .portrait { inset: 0 50% 38% 0; }
+  .quote-slide .portrait.second { inset: 0 0 38% 50%; clip-path: none; border-left: 2px solid var(--deep); }
+  .quote-slide .portrait img { object-position: 50% 35%; }
   .quote-slide::after, .quote-slide.align-right::after { background: linear-gradient(0deg, rgba(12,20,16,.98) 0, rgba(12,20,16,.6) 45%, rgba(12,20,16,.05) 78%); }
-  .quote-slide::before, .quote-slide.align-right::before { left: 7vw; right: 7vw; bottom: 13vh; width: auto; text-align: left; font-size: clamp(2rem, 9vw, 3.4rem); }
-  .panorama img, .final-slide > img { object-position: center; }
-  .panorama::before { left: 7vw; bottom: 15vh; width: 86vw; font-size: clamp(2.2rem, 11vw, 4rem); }
-  .final-slide::after { background: linear-gradient(0deg, rgba(10,16,13,.98) 0, rgba(10,16,13,.65) 48%, rgba(10,16,13,.08) 76%); }
-  .final-copy { left: 7vw; right: 7vw; top: auto; bottom: 13vh; width: auto; transform: none; }
-  .final-copy h2 { font-size: clamp(1.8rem, 8vw, 3rem); }
-  .controls { left: 50%; right: auto; transform: translateX(-50%); max-width: calc(100vw - 1rem); }
+  .quote-slide::before, .quote-slide.align-right::before { left: 7vw; right: 7vw; bottom: max(13vh, 5.6rem); width: auto; text-align: left; font-size: clamp(1.9rem, 8.6vw, 3.35rem); }
+  .panorama img { object-position: center; }
+  .panorama::before { left: 7vw; bottom: max(15vh, 6rem); width: 86vw; font-size: clamp(2.1rem, 10vw, 4rem); }
+  .final-slide { display: grid; grid-template-rows: 53% 47%; }
+  .final-slide > img { grid-row: 1; width: 100%; height: 100%; object-fit: contain; object-position: center top; transform: none; background: #0a100d; }
+  .final-slide::after { background: linear-gradient(0deg, rgba(10,16,13,1) 0 47%, rgba(10,16,13,.6) 57%, transparent 72%); }
+  .final-copy { left: 7vw; right: 7vw; top: auto; bottom: max(11vh, 5rem); width: auto; transform: none; }
+  .final-copy .kicker { margin-bottom: .65rem; }
+  .final-copy h2 { font-size: clamp(1.55rem, 6.8vw, 2.6rem); line-height: 1.05; }
+  .final-copy p:last-child { margin-top: .75rem; font-size: clamp(.9rem, 3.8vw, 1.08rem); }
+  .controls { left: 50%; right: auto; bottom: max(.65rem, env(safe-area-inset-bottom)); transform: translateX(-50%); max-width: calc(100vw - 1rem); opacity: .8; }
+  .controls button { min-height: 2.75rem; }
   .audio-button, #fullscreen { display: none; }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .title-copy { width: 84vw; }
+  h1 { max-width: 16ch; font-size: clamp(2.6rem, 8vw, 4.4rem); }
+  .subtitle { margin-top: .8rem; }
+  .quote-slide .portrait { inset: 0 50% 0 0; }
+  .quote-slide .portrait.second { inset: 0 0 0 50%; clip-path: none; }
+  .quote-slide::before, .quote-slide.align-right::before { left: 5vw; right: 5vw; bottom: 15vh; width: min(72vw, 760px); font-size: clamp(1.7rem, 5vw, 3rem); text-align: left; }
+  .panorama::before { left: 5vw; bottom: 16vh; width: 80vw; font-size: clamp(2rem, 6vw, 3.6rem); }
+  .final-slide { display: block; }
+  .final-slide > img { width: 100%; height: 100%; object-fit: cover; }
+  .final-copy { left: 5vw; right: auto; top: 50%; bottom: auto; width: 52vw; transform: translateY(-50%); }
+  .final-copy h2 { font-size: clamp(1.5rem, 4vw, 2.7rem); }
+  .final-copy p:last-child { font-size: .9rem; }
+  .controls { left: auto; right: .6rem; bottom: .5rem; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
