@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103e68">
+  <meta name="description" content="Curso de aperfeiçoamento Comunicação não-violenta: conexões mais humanizadas, promovido pela EJUD-MS." />
+  <title>Comunicação não-violenta | EJUD-MS</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #123e68;
+      --navy-deep: #0b2f53;
+      --green: #075b48;
+      --gold: #d5aa4d;
+      --cream: #fbfaf4;
+      --ink: #18334d;
+      --muted: #53697b;
+      --line: #d9e1e4;
+      --white: #fff;
+      --shadow: 0 18px 50px rgba(14, 51, 76, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: Aptos, "Segoe UI", system-ui, -apple-system, sans-serif; line-height: 1.55; }
+    a { color: inherit; }
+    .skip-link { position: absolute; left: -999px; top: 1rem; z-index: 10; padding: .7rem 1rem; background: var(--white); color: var(--navy); }
+    .skip-link:focus { left: 1rem; }
+    .topline { height: 8px; background: linear-gradient(90deg, var(--green) 0 34%, var(--gold) 34% 67%, var(--navy) 67%); }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { padding: 22px 0; }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 18px; text-decoration: none; }
+    .brand img { display: block; width: min(270px, 42vw); height: auto; }
+    .court { border-left: 1px solid var(--line); padding-left: 18px; color: var(--navy-deep); font-size: .77rem; font-weight: 700; letter-spacing: .11em; line-height: 1.35; text-transform: uppercase; }
+    .court small { display: block; margin-top: 4px; color: var(--muted); font-size: .64rem; font-weight: 500; letter-spacing: .08em; }
+    nav { display: flex; gap: 26px; padding-top: 20px; color: var(--muted); font-size: .9rem; }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a:focus-visible { color: var(--green); text-decoration: underline; text-underline-offset: 4px; }
+    .hero { position: relative; overflow: hidden; padding: 46px 0 54px; background: radial-gradient(ellipse at 87% 35%, #e7f0f3 0 22%, transparent 22.2%), linear-gradient(132deg, #edf4ef 0%, var(--cream) 48%, #f2f5f2 100%); }
+    .hero::before, .hero::after { position: absolute; content: ""; width: 350px; height: 350px; border: 1px solid rgba(18, 62, 104, .10); border-radius: 50%; pointer-events: none; }
+    .hero::before { top: -230px; left: -110px; box-shadow: 0 0 0 28px rgba(18, 62, 104, .025), 0 0 0 58px rgba(7, 91, 72, .025); }
+    .hero::after { right: -220px; bottom: -270px; width: 480px; height: 480px; box-shadow: 0 0 0 30px rgba(213, 170, 77, .08), 0 0 0 62px rgba(18, 62, 104, .025); }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 40px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 20px; color: #5c4616; font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { width: 38px; height: 7px; border-radius: 10px; background: var(--gold); content: ""; }
+    h1 { max-width: 750px; margin: 0; color: var(--navy); font-size: clamp(2.65rem, 6.2vw, 5.35rem); font-weight: 850; letter-spacing: -.055em; line-height: .98; }
+    h1 span { display: block; color: var(--green); }
+    .subtitle { margin: 16px 0 0; color: var(--navy); font-size: clamp(1.3rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -.025em; }
+    .values { display: flex; flex-wrap: wrap; gap: 9px 0; margin: 25px 0 0; padding: 0; list-style: none; color: var(--navy); font-size: .82rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .values li { padding: 0 14px; border-left: 1px solid var(--gold); }
+    .values li:first-child { padding-left: 0; border-left: 0; }
+    .speech-art { position: relative; min-height: 285px; }
+    .bubble { position: absolute; display: grid; place-items: center; width: 190px; height: 120px; border-radius: 50%; box-shadow: 0 12px 26px rgba(14, 51, 76, .13); }
+    .bubble::after { position: absolute; bottom: -18px; left: 34px; width: 42px; height: 38px; background: inherit; clip-path: polygon(0 0, 100% 0, 0 100%); content: ""; }
+    .bubble-dots { display: flex; gap: 15px; }
+    .bubble-dots i { width: 12px; height: 12px; border-radius: 50%; background: white; }
+    .bubble-blue { z-index: 2; top: 15px; left: 5%; background: var(--navy); }
+    .bubble-gold { top: 93px; right: 4%; background: var(--gold); transform: rotate(7deg); }
+    .bubble-green { z-index: 3; bottom: 8px; left: 16%; background: #42816e; transform: rotate(-5deg); }
+    .hero-note { position: absolute; right: 0; bottom: -13px; max-width: 185px; color: var(--navy); font-size: 1rem; font-weight: 650; line-height: 1.35; }
+    .hero-note::before { display: block; width: 54px; height: 4px; margin-bottom: 12px; background: var(--gold); content: ""; }
+    .section { padding: 74px 0; }
+    .section-heading { max-width: 700px; margin: 0 0 28px; }
+    .section-kicker { margin: 0 0 8px; color: var(--green); font-size: .77rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin: 0; color: var(--navy); font-size: clamp(1.8rem, 3.3vw, 2.65rem); letter-spacing: -.035em; line-height: 1.1; }
+    .lead { max-width: 700px; margin: 13px 0 0; color: var(--muted); font-size: 1.04rem; }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .fact { min-height: 165px; padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.82); box-shadow: 0 8px 24px rgba(14,51,76,.04); }
+    .fact-icon { display: grid; width: 45px; height: 45px; place-items: center; margin-bottom: 14px; border-radius: 50%; background: #f2e6c5; color: var(--navy); font-size: 1.2rem; }
+    .fact-label { display: block; color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .fact strong { display: block; margin-top: 5px; color: var(--navy); font-size: 1.08rem; line-height: 1.25; }
+    .fact small { display: block; margin-top: 5px; color: var(--muted); font-size: .86rem; }
+    .pathway { background: #eef3f1; }
+    .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .step { position: relative; padding: 26px 28px 26px 82px; border-radius: 20px; background: var(--white); box-shadow: var(--shadow); }
+    .step-number { position: absolute; top: 25px; left: 24px; display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: var(--gold); color: var(--navy-deep); font-weight: 850; }
+    .step h3 { margin: 0; color: var(--navy); font-size: 1.15rem; }
+    .step p { margin: 7px 0 0; color: var(--muted); }
+    .step .time { display: inline-block; margin-top: 13px; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .details-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 24px; }
+    .detail-card { padding: 30px; border: 1px solid var(--line); border-radius: 22px; background: var(--white); }
+    .detail-card h3 { margin: 0 0 18px; color: var(--navy); font-size: 1.3rem; }
+    .audience-row { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-top: 1px solid var(--line); }
+    .audience-row span { color: var(--ink); }
+    .count { flex: none; padding: 3px 10px; border-radius: 7px; background: var(--navy); color: white; font-size: .83rem; font-weight: 750; }
+    address { color: var(--ink); font-style: normal; }
+    .address-line { display: flex; gap: 14px; align-items: flex-start; }
+    .pin { color: var(--gold); font-size: 1.4rem; }
+    .location-note { margin: 15px 0 0; color: var(--muted); font-size: .89rem; }
+    .faculty { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .person { padding: 25px; border-radius: 18px; background: var(--navy); color: var(--white); }
+    .person:nth-child(2) { background: var(--green); }
+    .person .role { display: block; margin-bottom: 9px; color: #f1d58d; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .person strong { font-size: 1.12rem; line-height: 1.3; }
+    .closing { padding: 42px 0; background: var(--navy-deep); color: var(--white); }
+    .closing-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .closing p { margin: 0; font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 750; letter-spacing: -.02em; }
+    .closing a { flex: none; padding: 12px 18px; border: 1px solid rgba(255,255,255,.55); border-radius: 100px; color: var(--white); font-size: .88rem; font-weight: 700; text-decoration: none; }
+    .closing a:hover, .closing a:focus-visible { background: white; color: var(--navy-deep); }
+    footer { padding: 24px 0; color: #d6e0e8; background: #082744; font-size: .78rem; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 16px; }
+    footer a { color: white; }
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 22px; }
+      .speech-art { width: min(460px, 100%); min-height: 270px; margin: 0 auto; }
+      .hero-note { right: 3%; }
+      .facts { grid-template-columns: repeat(2, 1fr); }
+      .details-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      header { padding: 16px 0; }
+      .brand-row { align-items: flex-start; }
+      .brand { gap: 0; }
+      .brand img { width: min(210px, 53vw); }
+      .court { padding-left: 10px; font-size: .58rem; letter-spacing: .07em; }
+      .court small { font-size: .52rem; letter-spacing: .04em; }
+      nav { justify-content: space-between; gap: 8px; padding-top: 15px; font-size: .78rem; }
+      .hero { padding: 34px 0 42px; }
+      .speech-art { min-height: 238px; }
+      .bubble { width: 150px; height: 98px; }
+      .bubble-blue { left: 1%; }
+      .bubble-gold { right: 0; top: 73px; }
+      .bubble-green { left: 12%; bottom: 0; }
+      .bubble-dots { gap: 11px; }
+      .bubble-dots i { width: 9px; height: 9px; }
+      .hero-note { right: 0; bottom: -22px; max-width: 140px; font-size: .83rem; }
+      .section { padding: 54px 0; }
+      .facts { gap: 10px; }
+      .fact { min-height: 156px; padding: 16px; border-radius: 15px; }
+      .step { padding: 22px 20px 22px 70px; }
+      .step-number { top: 22px; left: 17px; }
+      .steps, .faculty { grid-template-columns: 1fr; }
+      .detail-card { padding: 23px; }
+      .closing-inner { align-items: flex-start; flex-direction: column; }
+      footer .wrap { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="topline" aria-hidden="true"></div>
+  <header class="wrap">
+    <div class="brand-row">
+      <a class="brand" href="#inicio" aria-label="Início do curso Comunicação não-violenta">
+        <img src="https://ejud.tjms.jus.br/ejdrive/assets/anexos/banners/logo-ejud-tjms.png" alt="Escola Judicial do Estado de Mato Grosso do Sul — EJUD-MS">
+      </a>
+      <div class="court">Poder Judiciário<small>Tribunal de Justiça de Mato Grosso do Sul</small></div>
+    </div>
+    <nav aria-label="Navegação principal">
+      <a href="#curso">O curso</a>
+      <a href="#percurso">Percurso</a>
+      <a href="#publico">Público e local</a>
+      <a href="#docentes">Docentes</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Curso de aperfeiçoamento</p>
+          <h1>Comunicação <span>não-violenta:</span></h1>
+          <p class="subtitle">conexões mais humanizadas</p>
+          <ul class="values" aria-label="Eixos do curso">
+            <li>Diálogo</li><li>Conexão</li><li>Respeito</li><li>Humanização</li>
+          </ul>
+        </div>
+        <div class="speech-art" aria-hidden="true">
+          <div class="bubble bubble-blue"><span class="bubble-dots"><i></i><i></i><i></i></span></div>
+          <div class="bubble bubble-gold"><span class="bubble-dots"><i></i><i></i><i></i></span></div>
+          <div class="bubble bubble-green"><span class="bubble-dots"><i></i><i></i><i></i></span></div>
+          <p class="hero-note">Escuta<br>Respeito<br>Empatia<br>Conexão</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="curso">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="section-kicker">Informações do curso</p>
+          <h2>Um percurso de diálogo, escuta e conexão</h2>
+          <p class="lead">Pessoas que dialogam constroem soluções. O curso combina uma etapa a distância e dois dias presenciais para magistradas, magistrados, servidoras e servidores do TJMS.</p>
+        </div>
+        <div class="facts">
+          <article class="fact"><span class="fact-icon" aria-hidden="true">▦</span><span class="fact-label">Realização</span><strong>11 a 13 de novembro de 2026</strong></article>
+          <article class="fact"><span class="fact-icon" aria-hidden="true">◷</span><span class="fact-label">Carga horária</span><strong>20 horas-aula</strong><small>16 presenciais e 4 a distância</small></article>
+          <article class="fact"><span class="fact-icon" aria-hidden="true">⌑</span><span class="fact-label">Formato</span><strong>Etapa a distância e etapa presencial</strong></article>
+          <article class="fact"><span class="fact-icon" aria-hidden="true">◎</span><span class="fact-label">Instituição</span><strong>Escola Judicial do Estado de Mato Grosso do Sul</strong><small>EJUD-MS · TJMS</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pathway" id="percurso">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="section-kicker">Percurso formativo</p>
+          <h2>Três dias, duas etapas</h2>
+          <p class="lead">As datas, a carga horária e os horários seguem as informações do material de divulgação do curso.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><span class="step-number">1</span><h3>Etapa a distância</h3><p>Quarta-feira, 11 de novembro de 2026.</p><span class="time">4 horas-aula</span></article>
+          <article class="step"><span class="step-number">2</span><h3>Encontro presencial · 1º dia</h3><p>Quinta-feira, 12 de novembro de 2026.</p><span class="time">8 horas-aula · 8h às 12h e 14h às 18h</span></article>
+          <article class="step"><span class="step-number">3</span><h3>Encontro presencial · 2º dia</h3><p>Sexta-feira, 13 de novembro de 2026.</p><span class="time">8 horas-aula · 8h às 12h e 14h às 18h</span></article>
+          <article class="step"><span class="step-number">20</span><h3>Carga horária total</h3><p>Uma jornada com 16 horas-aula presenciais e 4 horas-aula a distância.</p><span class="time">20 horas-aula</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publico">
+      <div class="wrap details-grid">
+        <article class="detail-card">
+          <p class="section-kicker">Participantes</p>
+          <h3>Público-alvo e vagas</h3>
+          <div class="audience-row"><span>Magistradas e magistrados</span><strong class="count">20 vagas</strong></div>
+          <div class="audience-row"><span>Servidoras e servidores</span><strong class="count">20 vagas</strong></div>
+        </article>
+        <article class="detail-card">
+          <p class="section-kicker">Encontros presenciais</p>
+          <h3>Local de realização</h3>
+          <address class="address-line"><span class="pin" aria-hidden="true">●</span><span><strong>Sede da EJUD-MS</strong><br>Rua Raul Pires Barbosa, 1519<br>Chácara Cachoeira</span></address>
+          <p class="location-note">Mato Grosso do Sul</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section pathway" id="docentes">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="section-kicker">Facilitação</p>
+          <h2>Docentes</h2>
+        </div>
+        <div class="faculty">
+          <article class="person"><span class="role">Docente</span><strong>Fernando de Assis Alves</strong></article>
+          <article class="person"><span class="role">Docente</span><strong>Ânderson Jônio Lopes Porto de Queiroz</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap closing-inner"><p>Pessoas que dialogam constroem soluções.</p><a href="https://ejud.tjms.jus.br/" target="_blank" rel="noopener noreferrer">Conheça a EJUD-MS ↗</a></div>
+    </section>
+  </main>
+  <footer><div class="wrap"><span>Comunicação não-violenta: conexões mais humanizadas</span><span>EJUD-MS · Tribunal de Justiça de Mato Grosso do Sul</span></div></footer>
+</body>
+</html>
