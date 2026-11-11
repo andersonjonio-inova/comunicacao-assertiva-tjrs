@@ -9,4 +9,4 @@ Versão web estática do curso de aperfeiçoamento da EJUD-MS/TJMS, baseada no m
 
 ## Publicação
 
-A cópia pública será acrescentada em `comunicacao-nao-violenta-tjms/` no repositório `andersonjonio-inova/comunicacao-assertiva-tjrs`, sem alterar o portal TJRS existente.
+A página está publicada em `comunicacao-nao-violenta-tjms/` no repositório `andersonjonio-inova/comunicacao-assertiva-tjrs`, preservando o portal TJRS existente.
