@@ -97,6 +97,8 @@ h1 span { display: block; margin-top: .55rem; color: #cfe1f7; font-family: Aptos
 .file-meta { display: block; margin-bottom: 1rem; color: #69778a; font-size: .85rem; }
 .material-actions { display: flex; flex-wrap: wrap; gap: .55rem; }
 .material-actions .button { min-height: 42px; padding: .58rem .75rem; font-size: .9rem; }
+.materials-note { margin: 1.4rem 0; padding: 1rem 1.2rem; border-left: 4px solid var(--yellow); border-radius: .4rem; background: #f7f4ed; color: var(--muted); }
+.facilitator-head { margin-top: 3.5rem; }
 
 .capaz-panel { display: grid; grid-template-columns: minmax(240px, .72fr) minmax(0, 1.28fr); overflow: hidden; border-radius: 1.6rem; background: var(--navy); color: white; box-shadow: var(--shadow); }
 .capaz-visual { display: grid; min-height: 390px; place-items: center; padding: clamp(.75rem, 2vw, 1.5rem); background: #f7f4ed; }
