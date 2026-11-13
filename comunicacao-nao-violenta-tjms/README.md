@@ -13,7 +13,7 @@ Os links dos slides no portal apontam para as rotas próprias do TJMS. Atualiza�
 
 ## Materiais
 
-Os PDFs públicos estão em `materiais/` dentro desta pasta. O portal distingue recursos dos participantes e guia de facilitação. As três versões do estudo de caso são alternativas de aplicação, não uma sequência de leitura obrigatória.
+Os PDFs públicos estão em `materiais/` dentro desta pasta. O portal apresenta os materiais destinados aos participantes; o guia de facilitação permanece no repositório, mas não é listado nem vinculado na página pública. As três versões do estudo de caso são alternativas de aplicação, não uma sequência de leitura obrigatória.
 
 O botão da CAPAZ abre o notebook compartilhado no NotebookLM. A disponibilidade depende das permissões de compartilhamento e do login exigido pelo serviço.
 
