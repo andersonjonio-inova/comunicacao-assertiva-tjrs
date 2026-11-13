@@ -77,7 +77,7 @@ h1 span { display: block; margin-top: .55rem; color: #cfe1f7; font-family: Aptos
 .section-head { max-width: 760px; margin-bottom: 2rem; }
 .section-head h2 { color: var(--navy); font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.15rem, 4vw, 3.5rem); }
 .section-head p { color: var(--muted); font-size: 1.08rem; }
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .card { display: flex; min-width: 0; flex-direction: column; padding: 1.5rem; border: 1px solid var(--line); border-top: 6px solid var(--blue); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow); }
 .card.day-1 { border-top-color: var(--yellow); }
 .card.day-2 { border-top-color: var(--green); }
